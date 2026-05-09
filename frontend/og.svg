@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="#dbeafe" opacity="0.18">
+    <rect x="120" y="120" width="220" height="110" rx="28"/>
+    <rect x="140" y="100" width="70" height="50" rx="16"/>
+    <rect x="250" y="100" width="70" height="50" rx="16"/>
+  </g>
+  <g transform="translate(96, 320)" font-family="Inter, system-ui, sans-serif" fill="#ffffff">
+    <text font-size="40" font-weight="600" opacity="0.9">Fresh Sheets</text>
+    <text y="100" font-size="92" font-weight="800">When did you last</text>
+    <text y="200" font-size="92" font-weight="800">wash your sheets?</text>
+  </g>
+  <g transform="translate(96, 560)" font-family="Inter, system-ui, sans-serif" fill="#dbeafe">
+    <text font-size="26" font-weight="500">SMS reminders. Weekly cadence. Reply DONE.</text>
+  </g>
+</svg>
