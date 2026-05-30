@@ -526,7 +526,8 @@
 
             <div id="waitlistDone" class="waitlist-confirm hidden" role="status" aria-live="polite">
               <strong>You're on the list.</strong>
-              Your email was saved in this browser. This is a local note to yourself only -- no server has received it yet. Michael will set up the real signup endpoint and reach out once a spot opens up.
+              Your email was saved in this browser. This is a local note to yourself only, no server has received it yet. Want a real spot held? Send Michael a one click email and he will add you when reminders open.
+              <a id="waitlistMailto" class="button button-primary full" href="#" style="margin-top: 12px;">Email Michael to hold my spot</a>
             </div>
           </div>
 
@@ -543,15 +544,28 @@
         var emailInput = document.getElementById('waitlistEmail');
         var submitBtn = document.getElementById('waitlistSubmit');
         var errorBox = document.getElementById('waitlistError');
+        var mailtoLink = document.getElementById('waitlistMailto');
 
-        function showDone() {
+        function showDone(email) {
+          if (mailtoLink && email) {
+            var subject = 'Fresh Sheets waitlist';
+            var body = 'Please add me to the Fresh Sheets reminder waitlist. My email is ' + email + '.';
+            mailtoLink.setAttribute(
+              'href',
+              'mailto:michaelpyon@gmail.com?subject=' +
+                encodeURIComponent(subject) +
+                '&body=' +
+                encodeURIComponent(body)
+            );
+          }
           formWrap.classList.add('hidden');
           doneBox.classList.remove('hidden');
         }
 
         // If already saved, skip straight to confirmation
-        if (localStorage.getItem(STORAGE_KEY)) {
-          showDone();
+        var savedEmail = localStorage.getItem(STORAGE_KEY);
+        if (savedEmail) {
+          showDone(savedEmail);
         }
 
         submitBtn.addEventListener('click', function () {
@@ -564,7 +578,7 @@
           }
           errorBox.classList.add('hidden');
           localStorage.setItem(STORAGE_KEY, email);
-          showDone();
+          showDone(email);
         });
 
         emailInput.addEventListener('keydown', function (e) {
