@@ -424,6 +424,49 @@
         margin-bottom: 4px;
       }
 
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .step {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 20px;
+        padding: 16px;
+        display: grid;
+        gap: 8px;
+        align-content: start;
+      }
+
+      .step-num {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        background: var(--blue-soft);
+        color: var(--blue);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.95rem;
+      }
+
+      .step h3 {
+        font-size: 1rem;
+      }
+
+      .step p {
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 560px) {
+        .steps {
+          grid-template-columns: 1fr;
+        }
+      }
+
       dialog {
         width: min(100%, 620px);
         border: none;
@@ -493,6 +536,24 @@
             <div class="stack" style="gap: 6px;">
               <h1 class="headline">When did you last wash your sheets?</h1>
               <p>Be honest.</p>
+            </div>
+          </div>
+
+          <div class="steps" aria-label="How it works">
+            <div class="step">
+              <span class="step-num" aria-hidden="true">1</span>
+              <h3>Pick a cadence</h3>
+              <p>Weekly, every 2 weeks, monthly. Whatever you can actually keep.</p>
+            </div>
+            <div class="step">
+              <span class="step-num" aria-hidden="true">2</span>
+              <h3>Get a text</h3>
+              <p>A reminder lands when it's time. No app to open, no dashboard to check.</p>
+            </div>
+            <div class="step">
+              <span class="step-num" aria-hidden="true">3</span>
+              <h3>Reply DONE</h3>
+              <p>That's it. Your streak goes up and the next reminder is set.</p>
             </div>
           </div>
 

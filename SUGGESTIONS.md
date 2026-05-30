@@ -43,21 +43,29 @@ GAP (honest, prior pass flagged it):
   visitor has no real path to reach Michael. This is the highest-leverage honest
   fix short of a real backend endpoint.
 
+## Shipped wave 2 (2026-05-30)
+
+- Item 2 SHIPPED: added a "How it works" 3 step strip (Pick a cadence, Get a
+  text, Reply DONE) between the headline and the waitlist form. Gives the
+  evangelist the actual product loop in seconds before she decides, reducing the
+  5 second bounce. Additive, responsive (3 columns on desktop, stacked under
+  560px), no new deps. File: frontend/index.html (built into dist). Builds and
+  parses clean. Deploy still needed to verify live.
+
+Note: item 1 (zero-backend mailto bridge) was shipped in the prior wave
+(commit 6f878b2). og.png was verified as a real 1200x630 PNG in HEAD, so the
+share card already rasterizes correctly; item 3 below is now only a file-size
+nicety, not a correctness fix.
+
 ## Prioritized plan
 
 ### Quick wins
 
-1. NUMBER 1 CHANGE: Give the waitlist a real, zero-backend delivery path.
-   After a valid email is captured to localStorage, reveal a "Email Michael to
-   hold my spot" mailto link prefilled with the address and subject. This turns
-   the dead-end localStorage note into an action the user can actually complete,
-   honestly, with no server and no deploy. File: frontend/index.html (and dist).
-   Effort S. Deploy needed to verify live, builds and parses clean locally.
+1. DONE (prior wave, commit 6f878b2): zero-backend mailto delivery path after a
+   valid email is captured to localStorage. Reveals an "Email Michael to hold my
+   spot" mailto prefilled with the address and subject.
 
-2. Add a short "How it works" 3 step strip above or below the form: pick a
-   cadence, get a text, reply DONE. The evangelist decides in seconds and this is
-   the actual product loop. Reduces 5 second bounce. File: frontend/index.html.
-   Effort S. Deploy to verify.
+2. DONE (wave 2): "How it works" 3 step strip above the form. See Shipped wave 2.
 
 3. Tighten the OG image freshness check. og.png is 306 KB which is heavy for a
    share card. Re-export at a smaller size to speed share previews on Reddit and
