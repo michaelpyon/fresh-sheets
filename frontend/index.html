@@ -393,6 +393,37 @@
         min-height: 44px;
       }
 
+      .waitlist-form {
+        display: grid;
+        gap: 10px;
+      }
+
+      .waitlist-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+      }
+
+      @media (max-width: 480px) {
+        .waitlist-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .waitlist-confirm {
+        border-radius: 18px;
+        padding: 14px 16px;
+        background: var(--blue-soft);
+        color: var(--ink);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .waitlist-confirm strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
       dialog {
         width: min(100%, 620px);
         border: none;
@@ -470,15 +501,33 @@
               We're opening reminders to a small first group. Join the waitlist and we'll
               text you when your spot is ready. Reply DONE when you wash. That's it.
             </p>
-            <a
-              id="waitlistButton"
-              class="button button-primary full"
-              href="https://forms.gle/PLACEHOLDER"
-              target="_blank"
-              rel="noopener"
-            >
-              Join the waitlist
-            </a>
+
+            <div id="waitlistFormWrap" class="waitlist-form">
+              <label for="waitlistEmail">Your email</label>
+              <div class="waitlist-row">
+                <input
+                  id="waitlistEmail"
+                  class="input"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  aria-required="true"
+                />
+                <button
+                  id="waitlistSubmit"
+                  class="button button-primary"
+                  type="button"
+                >
+                  Join the waitlist
+                </button>
+              </div>
+              <div id="waitlistError" class="message error hidden" role="alert"></div>
+            </div>
+
+            <div id="waitlistDone" class="waitlist-confirm hidden" role="status" aria-live="polite">
+              <strong>You're on the list.</strong>
+              Your email was saved in this browser. This is a local note to yourself only -- no server has received it yet. Michael will set up the real signup endpoint and reach out once a spot opens up.
+            </div>
           </div>
 
           <p>We'll text you. Reply DONE when you wash. That's it.</p>
@@ -486,5 +535,42 @@
       </div>
     </main>
 
+    <script>
+      (function () {
+        var STORAGE_KEY = 'freshSheets_waitlistEmail';
+        var formWrap = document.getElementById('waitlistFormWrap');
+        var doneBox = document.getElementById('waitlistDone');
+        var emailInput = document.getElementById('waitlistEmail');
+        var submitBtn = document.getElementById('waitlistSubmit');
+        var errorBox = document.getElementById('waitlistError');
+
+        function showDone() {
+          formWrap.classList.add('hidden');
+          doneBox.classList.remove('hidden');
+        }
+
+        // If already saved, skip straight to confirmation
+        if (localStorage.getItem(STORAGE_KEY)) {
+          showDone();
+        }
+
+        submitBtn.addEventListener('click', function () {
+          var email = emailInput.value.trim();
+          if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errorBox.textContent = 'Please enter a valid email address.';
+            errorBox.classList.remove('hidden');
+            emailInput.focus();
+            return;
+          }
+          errorBox.classList.add('hidden');
+          localStorage.setItem(STORAGE_KEY, email);
+          showDone();
+        });
+
+        emailInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') submitBtn.click();
+        });
+      })();
+    </script>
   </body>
 </html>
